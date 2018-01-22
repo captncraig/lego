@@ -16,7 +16,10 @@ type DNSProvider struct {
 // This lets you use a dedicated validation domain without needing to directly modify the domains you are issuing certs for.
 // Usage (In this example we will validate example.com via exvalidate.com):
 // 1. Select a validation domain. Set it in the TRANSFORM_DOMAIN env var.
-// 2. Set a CNAME on your target domains so that _acme-challenge.example.com points to _acme-challenge.example.com.exvalidate.com
+// 2. Set a CNAME on your target domains so that _acme-challenge.example.com points to _acme-challenge.example.com.exvalidate.com. Each name on the target domain
+//  needs to have a cname that points at the corresponding name on the validation domain.
+//  So to issue for foo.example.com you would need to CNAME that to _acme-challenge.foo.example.com.exvalidate.com
+//  Just the one record for the base domain name should be sufficient for certs on the root domain (and wildcards).
 // 3. Set TRANSFORM_PROVIDER to the actual dns provider validation type (route53, gcloud, etc..) to manage exvalidate.com
 // 4. Set up other environment variable credentials as needed by the inner provider
 //
